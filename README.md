@@ -10,7 +10,7 @@ Introduction
 ------------
 SoloS is a system for establishing trust and verifiability in the execution of autonomous AI agents. It generates cryptographically secure logs of an agent's internal state transitions and communications, creating an immutable record that can be audited to confirm the agent's authentic operation.
 
-<img width="704" alt="state" src="https://github.com/ALIVEcorp/SoloS/blob/main/routes/photo/field2.png" />
+<img width="704" alt="state" src="https://github.com/ALIVEcorp/SoloS/blob/main/routes/photo/field3.png" />
 
 System Overview
 ---------------
