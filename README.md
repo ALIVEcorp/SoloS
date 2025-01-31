@@ -1,4 +1,4 @@
-# Singular AI Systems
+# SoloS AI Systems
 
 A sophisticated autonomous agent framework implementing verifiable state machines and evolving personas with cryptographic proofs.
 
@@ -6,7 +6,7 @@ A sophisticated autonomous agent framework implementing verifiable state machine
 
 ## Overview
 
-Singular AI Systems is a TypeScript-based framework for creating autonomous AI agents with verifiable state transitions and evolving personas. The system combines cryptographic verification, state machine patterns, and dynamic persona evolution to create reliable and adaptable AI agents.
+SoloS AI Systems is a TypeScript-based framework for creating autonomous AI agents with verifiable state transitions and evolving personas. The system combines cryptographic verification, state machine patterns, and dynamic persona evolution to create reliable and adaptable AI agents.
 
 ### Key Features
 
