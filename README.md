@@ -1,237 +1,197 @@
+# Singular AI Systems
 
-# API Documentation
+A sophisticated autonomous agent framework implementing verifiable state machines and evolving personas with cryptographic proofs.
 
-Base URL: `/api/v1`
+![banner](https://github.com/user-attachments/assets/0caf7c05-d639-4828-8cba-8c0156929280)
 
-## Authentication
+## Overview
 
-### Connect Wallet
-```http
-POST /auth/wallet/connect
-```
-Connects and authenticates a user's Solana wallet.
+Singular AI Systems is a TypeScript-based framework for creating autonomous AI agents with verifiable state transitions and evolving personas. The system combines cryptographic verification, state machine patterns, and dynamic persona evolution to create reliable and adaptable AI agents.
 
-**Request Body:**
-```json
-{
-    "publicKey": "string" // Solana wallet public key
-}
-```
+### Key Features
 
-**Response:**
-```json
-{
-    "user": {
-        "id": "string",
-        "username": "string",
-        "walletAddress": "string",
-        "bio": "string",
-        "avatarUrl": "string",
-        "fullName": "string",
-        "role": "string",
-        "createdAt": "string"
-    },
-    "tokens": {
-        "accessToken": "string",
-        "refreshToken": "string"
-    }
-}
-```
+- **Cryptographically Verifiable State Machines**: Every state transition is cryptographically signed and stored in a Merkle tree
+- **Evolving Persona System**: Agents can develop and adapt their personalities over time
+- **Knowledge Integration**: Built-in Wikipedia scraping and topic tree generation
+- **Multi-Agent Swarms**: Support for running multiple coordinated agents
+- **Comprehensive Logging**: Detailed ASCII art logging system with state transition tracking
 
-### Refresh Token
-```http
-POST /auth/refresh
-```
-Refreshes an expired access token.
+## Architecture
 
-**Request Body:**
-```json
-{
-    "refreshToken": "string"
-}
-```
+The system is built on several core components:
 
-**Headers Required:**
-- `x-csrf-token`: CSRF token from cookie
+### State Machine Core (`sm.ts`)
+- Implements a generic state machine with cryptographic verification
+- Uses Merkle trees for state history verification
+- Supports arbitrary state definitions and transition rules
 
-**Response:**
-```json
-{
-    "tokens": {
-        "accessToken": "string",
-        "refreshToken": "string"
-    }
-}
-```
+### Persona Management (`persona.ts`)
+- Manages agent personalities and traits
+- Implements evolutionary algorithms for persona development
+- Supports versioned tree-based persona history
 
-### Verify Authentication
-```http
-GET /auth/verify
-```
-Verifies current authentication status.
+### Knowledge Systems
+- Wikipedia integration for knowledge gathering
+- Topic tree generation and management
+- Support for multiple knowledge source types
 
-**Response:**
-```json
-{
-    "authenticated": true,
-    "user": {
-        "id": "string",
-        "username": "string",
-        "walletAddress": "string",
-        "role": "string"
-    }
-}
-```
+### Logging and Monitoring (`logger.ts`)
+- Beautiful ASCII art logging
+- State transition tracking
+- Cryptographic proof verification
 
-### Logout
-```http
-POST /auth/logout
-```
-Logs out the user and invalidates their tokens.
+## Getting Started
 
-**Response:**
-```json
-{
-    "message": "Logged out successfully"
-}
-```
+### Prerequisites
 
-## Swarm Management
-
-### Get Swarm Status
-```http
-GET /swarm/status
-```
-Returns status of all agents in the swarm for the authenticated user.
-
-**Response:**
-```json
-{
-    "agents": [
-        {
-            "id": "string",
-            "name": "string",
-            "status": "running" | "stopped",
-            "activeInSwarm": boolean
-        }
-    ]
-}
-```
-
-### Start All Agents
-```http
-POST /swarm/start
-```
-Starts all stopped agents for the authenticated user.
-
-**Response:**
-```json
-{
-    "message": "Swarm started successfully",
-    "startedAgents": ["string"]
-}
-```
-
-### Stop All Agents
-```http
-POST /swarm/stop
-```
-Stops all running agents for the authenticated user.
-
-**Response:**
-```json
-{
-    "message": "Swarm stopped successfully",
-    "stoppedAgents": ["string"]
-}
-```
-
-### Start Specific Agent
-```http
-POST /swarm/start/:agentId
-```
-Starts a specific agent in the swarm.
-
-**Response:**
-```json
-{
-    "message": "Agent started successfully",
-    "agentId": "string",
-    "status": "running"
-}
-```
-
-### Stop Specific Agent
-```http
-POST /swarm/stop/:agentId
-```
-Stops a specific agent in the swarm.
-
-**Response:**
-```json
-{
-    "message": "Agent stopped successfully",
-    "agentId": "string",
-    "status": "stopped"
-}
-```
-
-## Agents
-
-### Chat with Agent
-```http
-POST /agents/:id/chat
-```
-Send a message to an agent and get a response.
-
-**Request Body:**
-```json
-{
-    "message": "string"
-}
-```
-
-**Response:**
-```json
-{
-    "response": "string"
-}
-```
-
-## Authentication Notes
-
-- All endpoints except `/auth/wallet/connect` require authentication via Bearer token
-- Include the access token in the Authorization header:
-  ```
-  Authorization: Bearer <access_token>
-  ```
-- CSRF token is required for all POST/PUT/DELETE requests
-- Refresh tokens automatically rotate on use
-
-## Error Responses
-
-All endpoints may return error responses in this format:
-
-```json
-{
-    "error": "string",
-    "code": "string"
-}
-```
-
-Common status codes:
-- 400: Bad Request
-- 401: Unauthorized
-- 403: Forbidden
-- 404: Not Found
-- 500: Internal Server Error
-
-## Environment Setup
-
-Required environment variables:
 ```bash
-PORT=3005
-FRONTEND_URL=http://localhost:3000
-DATABASE_URL=postgresql://user:pass@localhost:5432/dbname
+# Node.js v18+ required
+node -v
+
+# Install dependencies
+npm install
 ```
+
+### Environment Setup
+
+Create a `.env` file with:
+
+```env
+CLAUDE_API_KEY=xxxx
+IPFS_KEY=xxxx
+POSTGRES_URL=xxxx
+RAGIE_API_KEY=xxxx
+RAGIE_API_KEY=xxxx
+HELIS_SOLANA_URL=xxxx
+HELIS_SOLANA_API_KEY=xxxx
 ```
+
+### Basic Usage
+
+```typescript
+// Create a new persona agent
+const agent = new PersonaSubAgent(
+    "agent_id",
+    "session_id",
+    privateKeyHex
+);
+
+// Initialize with default persona
+await agent.start(defaultPersona);
+
+// Monitor state transitions
+agent.getCurrentState();
+agent.getEvolutionHistory();
+```
+
+### Running a Swarm
+
+```typescript
+import { startSwarm } from './swarm';
+
+// Start multiple agents
+await startSwarm(
+    privateKeyHex,
+    initialPersona,
+    numAgents,
+    "SWARM_PREFIX"
+);
+```
+
+## State Machine Verification
+
+The system uses cryptographic proofs for all state transitions:
+
+```typescript
+interface Proof {
+    stateHash: string;     // Hash of current state
+    prevHash: string;      // Hash of previous state
+    merkleRoot: string;    // Root of Merkle tree
+    merkleProof: string[]; // Proof path
+    signature: string;     // Cryptographic signature
+    timestamp: number;     // Proof generation time
+}
+```
+
+## Persona Evolution
+
+Personas evolve through a tree-based structure:
+
+```typescript
+interface PersonaStateData {
+    personalityTraits: string[];
+    goals: string[];
+    interests: string[];
+    background: string[];
+    skills: string[];
+    lore: string[];
+    memories: string[];
+    learnings: string[];
+    patterns: string[];
+    values: string[];
+    prompt: string;
+}
+```
+
+## API Endpoints
+
+### Swarm Management
+
+```
+POST /start
+{
+    "privateKeyHex": string,
+    "initialPersona": PersonaStateData,
+    "numAgents": number,
+    "agentPrefix": string
+}
+
+POST /end
+```
+
+## Database Schema
+
+The system requires PostgreSQL with the following tables:
+
+- `agent_personas`: Stores persona states and evolution history
+- `execution_logs`: Stores state transition logs and proofs
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## Testing
+
+```bash
+npm test
+```
+
+## License
+
+MIT License - see LICENSE file for details
+
+## Technical Documentation
+
+For detailed technical documentation, see:
+
+- [State Machine Documentation](docs/state-machine.md)
+- [Persona System](docs/persona-system.md)
+- [Knowledge Integration](docs/knowledge-integration.md)
+- [Cryptographic Verification](docs/crypto-verification.md)
+
+## Credits
+
+This project uses several key technologies:
+
+- [Anthropic Claude API](https://www.anthropic.com/claude) for LLM integration
+- [MerkleTreeJS](https://github.com/miguelmota/merkletreejs) for cryptographic proofs
+- [Express](https://expressjs.com/) for API endpoints
+- [PostgreSQL](https://www.postgresql.org/) for state storage
+
+## Contact
+
+For questions and support, please open an issue on GitHub.
