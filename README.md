@@ -83,3 +83,160 @@ This road map lays out an ambitious vision for evolving SoloS from a single-agen
 - Leveraging SoloS as a platform for the transparent development of AGI
 
 By providing a transparent, auditable foundation for AI agent development, SoloS aims to promote responsible innovation and mitigate risks as autonomous systems grow in sophistication and real-world impact. The road map represents a starting point for collaboratively advancing the technology in service of this mission.
+
+## Getting Started
+
+### Prerequisites
+
+```bash
+# Node.js v18+ required
+node -v
+
+# Install dependencies
+npm install
+```
+
+### Environment Setup
+
+Create a `.env` file with:
+
+```env
+CLAUDE_API_KEY=xxxx
+IPFS_KEY=xxxx
+POSTGRES_URL=xxxx
+RAGIE_API_KEY=xxxx
+RAGIE_API_KEY=xxxx
+HELIS_SOLANA_URL=xxxx
+HELIS_SOLANA_API_KEY=xxxx
+```
+
+### Basic Usage
+
+```typescript
+// Create a new persona agent
+const agent = new PersonaSubAgent(
+    "agent_id",
+    "session_id",
+    privateKeyHex
+);
+
+// Initialize with default persona
+await agent.start(defaultPersona);
+
+// Monitor state transitions
+agent.getCurrentState();
+agent.getEvolutionHistory();
+```
+
+### Running a Swarm
+
+```typescript
+import { startSwarm } from './swarm';
+
+// Start multiple agents
+await startSwarm(
+    privateKeyHex,
+    initialPersona,
+    numAgents,
+    "SWARM_PREFIX"
+);
+```
+
+## State Machine Verification
+
+The system uses cryptographic proofs for all state transitions:
+
+```typescript
+interface Proof {
+    stateHash: string;     // Hash of current state
+    prevHash: string;      // Hash of previous state
+    merkleRoot: string;    // Root of Merkle tree
+    merkleProof: string[]; // Proof path
+    signature: string;     // Cryptographic signature
+    timestamp: number;     // Proof generation time
+}
+```
+
+## Persona Evolution
+
+Personas evolve through a tree-based structure:
+
+```typescript
+interface PersonaStateData {
+    personalityTraits: string[];
+    goals: string[];
+    interests: string[];
+    background: string[];
+    skills: string[];
+    lore: string[];
+    memories: string[];
+    learnings: string[];
+    patterns: string[];
+    values: string[];
+    prompt: string;
+}
+```
+
+## API Endpoints
+
+### Swarm Management
+
+```
+POST /start
+{
+    "privateKeyHex": string,
+    "initialPersona": PersonaStateData,
+    "numAgents": number,
+    "agentPrefix": string
+}
+
+POST /end
+```
+
+## Database Schema
+
+The system requires PostgreSQL with the following tables:
+
+- `agent_personas`: Stores persona states and evolution history
+- `execution_logs`: Stores state transition logs and proofs
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## Testing
+
+```bash
+npm test
+```
+
+## License
+
+MIT License - see LICENSE file for details
+
+## Technical Documentation
+
+For detailed technical documentation, see:
+
+- [State Machine Documentation](docs/state-machine.md)
+- [Persona System](docs/persona-system.md)
+- [Knowledge Integration](docs/knowledge-integration.md)
+- [Cryptographic Verification](docs/crypto-verification.md)
+
+## Credits
+
+This project uses several key technologies:
+
+- [Anthropic Claude API](https://www.anthropic.com/claude) for LLM integration
+- [MerkleTreeJS](https://github.com/miguelmota/merkletreejs) for cryptographic proofs
+- [Express](https://expressjs.com/) for API endpoints
+- [PostgreSQL](https://www.postgresql.org/) for state storage
+
+## Contact
+
+For questions and support, please open an issue on GitHub.
+
