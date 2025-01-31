@@ -1,6 +1,6 @@
 Singular Systems
 =========================================
-![banner](https://github.com/user-attachments/assets/0caf7c05-d639-4828-8cba-8c0156929280)
+![banner](https://github.com/ALIVEcorp/SoloS/blob/main/routes/photo/banner.png)
 
 # Provable AI Agent Authenticity
 
