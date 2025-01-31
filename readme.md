@@ -10,7 +10,7 @@ Introduction
 ------------
 Singular is a system for establishing trust and verifiability in the execution of autonomous AI agents. It generates cryptographically secure logs of an agent's internal state transitions and communications, creating an immutable record that can be audited to confirm the agent's authentic operation.
 
-<img width="704" alt="state" src="https://github.com/user-attachments/assets/38344e2c-eb6c-4cf0-afe9-f0913d121797" />
+<img width="704" alt="state" src="https://github.com/ALIVEcorp/SoloS/blob/main/routes/photo/field.png" />
 
 System Overview
 ---------------
