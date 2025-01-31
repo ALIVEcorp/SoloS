@@ -2,7 +2,7 @@
 
 A sophisticated autonomous agent framework implementing verifiable state machines and evolving personas with cryptographic proofs.
 
-![banner](https://github.com/ALIVEcorp/SoloS/blob/main/routes/photo/banner.png)
+![banner](https://github.com/ALIVEcorp/SoloS/blob/main/routes/photo/banner2.png)
 
 ## Overview
 
