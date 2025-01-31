@@ -1,4 +1,4 @@
-Singular Systems
+SoloS Systems
 =========================================
 ![banner](https://github.com/ALIVEcorp/SoloS/blob/main/routes/photo/banner.png)
 
@@ -8,13 +8,13 @@ Singular Systems
 
 Introduction
 ------------
-Singular is a system for establishing trust and verifiability in the execution of autonomous AI agents. It generates cryptographically secure logs of an agent's internal state transitions and communications, creating an immutable record that can be audited to confirm the agent's authentic operation.
+SoloS is a system for establishing trust and verifiability in the execution of autonomous AI agents. It generates cryptographically secure logs of an agent's internal state transitions and communications, creating an immutable record that can be audited to confirm the agent's authentic operation.
 
 <img width="704" alt="state" src="https://github.com/ALIVEcorp/SoloS/blob/main/routes/photo/field.png" />
 
 System Overview
 ---------------
-At the core of Singular is a state machine that models an agent's behavior as a series of state transitions. Each transition represents a change in the agent's internal state and includes associated metadata such as the action that triggered it.
+At the core of SoloS is a state machine that models an agent's behavior as a series of state transitions. Each transition represents a change in the agent's internal state and includes associated metadata such as the action that triggered it.
 
 As the agent operates, the state machine securely logs each transition along with a cryptographic proof. These proofs form a hash chain rooted in a Merkle tree, ensuring the integrity and non-repudiation of the execution trace.
 
@@ -27,7 +27,7 @@ Key Components:
 
 Usage
 -----
-To use Singular in an AI system:
+To use SoloS in an AI system:
 1. Define the relevant AgentStates and valid transitions for your agent
 2. Create an instance of the AgentStateMachine, providing a unique agent ID, session ID, and cryptographic key pair  
 3. As the agent runs, use the `transitionTo` method to execute state changes, providing the destination state and associated action/metadata
@@ -36,7 +36,7 @@ To use Singular in an AI system:
 
 Extending Functionality
 -----------------------
-Singular is designed to be extensible for different agent architectures and use cases. Key areas for customization include:
+SoloS is designed to be extensible for different agent architectures and use cases. Key areas for customization include:
 - The AgentState enum and transition validity rules
 - State entry/exit hooks and transition side-effects
 - Broadcast mechanism for log distribution and external verification
@@ -46,7 +46,7 @@ The included `StateMachineLogger` class offers a reference implementation of str
 
 Future Directions
 -----------------
-Singular's modular architecture allows for the easy integration of new capabilities as the demands of autonomous agent verification evolve. Some potential areas for future development include:
+SoloS modular architecture allows for the easy integration of new capabilities as the demands of autonomous agent verification evolve. Some potential areas for future development include:
 - Support for multi-agent systems and inter-agent communication logging
 - Integration with distributed ledgers or other decentralized infrastructure for tamperproof log persistence
 - Automatic anomaly detection and real-time alerts for deviations from expected agent behavior
@@ -65,21 +65,21 @@ Phase 2 - Enhanced Reasoning & Logging
 - Enable "replay" functionality to step through agent execution traces for debugging and auditing
 
 Phase 3 - Autonomous Agent Ecosystems
-- Singular Registry & Discovery service for Singular agents to find and interact with each other
+- SoloS Registry & Discovery service for SoloS agents to find and interact with each other
 - Define standards for agent coordination, delegation, and mutual verification of task completion
 
 Phase 4 - Multi-Agent Communication Protocols
-- Define standard schemas for logging messages passed between Singular-enabled agents based on Activity Pub
+- Define standard schemas for logging messages passed between SoloS-enabled agents based on Activity Pub
 - Implement relay network for secure, verifiable routing of inter-agent communications
 - Extend state machine to model interaction patterns and protocols between agent groups
 
-This road map lays out an ambitious vision for evolving Singular from a single-agent logging tool into a comprehensive framework for building transparent, accountable, and interoperable AI systems. The phased approach allows for iterative development guided by community input, with an ultimate aim of providing a robust scaffolding for provably beneficial artificial general intelligence. Key priorities include:
+This road map lays out an ambitious vision for evolving SoloS from a single-agent logging tool into a comprehensive framework for building transparent, accountable, and interoperable AI systems. The phased approach allows for iterative development guided by community input, with an ultimate aim of providing a robust scaffolding for provably beneficial artificial general intelligence. Key priorities include:
 
 - Driving awareness and adoption within the AI development community 
 - Expanding the range and granularity of data captured in execution logs
-- Enabling secure, verifiable communication between Singular-enabled agents
-- Formalizing compliance and audit standards built on Singular proofs
+- Enabling secure, verifiable communication between SoloS-enabled agents
+- Formalizing compliance and audit standards built on SoloS proofs
 - Creating the software and economic infrastructure for thriving multi-agent ecosystems
-- Leveraging Singular as a platform for the transparent development of AGI
+- Leveraging SoloS as a platform for the transparent development of AGI
 
-By providing a transparent, auditable foundation for AI agent development, Singular aims to promote responsible innovation and mitigate risks as autonomous systems grow in sophistication and real-world impact. The road map represents a starting point for collaboratively advancing the technology in service of this mission.
+By providing a transparent, auditable foundation for AI agent development, SoloS aims to promote responsible innovation and mitigate risks as autonomous systems grow in sophistication and real-world impact. The road map represents a starting point for collaboratively advancing the technology in service of this mission.
