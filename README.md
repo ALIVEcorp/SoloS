@@ -1,4 +1,4 @@
-SoloS Systems
+SoloS Artificial Intelligence
 =========================================
 ![banner](https://github.com/ALIVEcorp/SoloS/blob/main/routes/photo/banner.png)
 
