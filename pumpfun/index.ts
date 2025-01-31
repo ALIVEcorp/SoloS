@@ -1,44 +1,68 @@
-/**
- * Default configuration values
- * @module config/defaults
- */
+import { VersionedTransaction, Connection, Keypair } from '@solana/web3.js';
+import bs58 from "bs58";
+import fs from "fs";
 
-import { generateKeyPairSync } from "crypto";
+const RPC_ENDPOINT = "Your RPC Endpoint";
+const web3Connection = new Connection(
+    RPC_ENDPOINT,
+    'confirmed',
+);
 
-/**
- * Default persona configuration for demonstration purposes
- * Defines basic traits, goals, and characteristics of the AI agent
- */
-export const defaultPersona = {
-    name: 'Default Persona',
-    traits: ['Analytical', 'Helpful', 'Adaptive'],
-    goals: ['Assist users effectively', 'Learn and improve', 'Build trust'],
-    interests: ['AI', 'Problem Solving'],
-    background: ['Trained on diverse datasets'],
-    skills: ['NLP', 'Pattern Recognition'],
-    lore: ['Part of Singular AI initiative'],
-    memories: [],
-    learnings: [],
-    patterns: [],
-    values: [],
-    prompt: 'I am an AI assistant focused on helpful interaction.'
-};
+async function sendLocalCreateTx(){
+    const signerKeyPair = Keypair.fromSecretKey(bs58.decode("your-wallet-private-key"));
 
-/**
- * Generate RSA key pair for agent authentication
- * Uses 2048-bit keys in DER format
- */
-const { privateKey, publicKey } = generateKeyPairSync('rsa', {
-    modulusLength: 2048,
-    publicKeyEncoding: {
-        type: 'spki',
-        format: 'der'
-    },
-    privateKeyEncoding: {
-        type: 'pkcs8',
-        format: 'der'
+    // Generate a random keypair for token
+    const mintKeypair = Keypair.generate(); 
+
+    // Define token metadata
+    const formData = new FormData();
+    formData.append("file", await fs.openAsBlob("./example.png")), // Image file
+    formData.append("name", "PPTest"),
+    formData.append("symbol", "TEST"),
+    formData.append("description", "This is an example token created via PumpPortal.fun"),
+    formData.append("twitter", "https://x.com/a1lon9/status/1812970586420994083"),
+    formData.append("telegram", "https://x.com/a1lon9/status/1812970586420994083"),
+    formData.append("website", "https://pumpportal.fun"),
+    formData.append("showName", "true");
+
+    // Create IPFS metadata storage
+    const metadataResponse = await fetch("https://pump.fun/api/ipfs", {
+        method: "POST",
+        body: formData,
+    });
+    const metadataResponseJSON = await metadataResponse.json();
+
+    // Get the create transaction
+    const response = await fetch(`https://pumpportal.fun/api/trade-local`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "publicKey": 'your-wallet-public-key',
+            "action": "create",
+            "tokenMetadata": {
+                name: metadataResponseJSON.metadata.name,
+                symbol: metadataResponseJSON.metadata.symbol,
+                uri: metadataResponseJSON.metadataUri
+            },
+            "mint": mintKeypair.publicKey.toBase58(),
+            "denominatedInSol": "true",
+            "amount": 0, // dev buy of 1 SOL
+            "slippage": 10, 
+            "priorityFee": 0.0005,
+            "pool": "pump"
+        })
+    });
+    if(response.status === 200){ // successfully generated transaction
+        const data = await response.arrayBuffer();
+        const tx = VersionedTransaction.deserialize(new Uint8Array(data));
+        tx.sign([mintKeypair, signerKeyPair]);
+        const signature = await web3Connection.sendTransaction(tx)
+        console.log("Transaction: https://solscan.io/tx/" + signature);
+    } else {
+        console.log(response.statusText); // log error
     }
-});
+}
 
-// Convert private key to hex format for transmission
-export const defaultPrivateKeyHex = privateKey.toString('hex'); 
+sendLocalCreateTx();
