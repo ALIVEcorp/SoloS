@@ -52,7 +52,7 @@ Refreshes an expired access token.
 ```
 
 **Headers Required:**
-- `x-csrf-token`: CSRF token from cookie
+- `x-csrf-token`: CSRF token from cookie out
 
 **Response:**
 ```json
